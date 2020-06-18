@@ -14,14 +14,11 @@ module.exports = {
                 
                 User.findOne({Username: Username, Password: Password})
                 .then(user => {
-
                     if(!user) return Exeption(res, 1001)
-
                     return res.send({
                         token: jwt.sign(JSON.stringify(user), process.env.SECRET),
                         type: 'User'
                     })
-
                 })
 
             }else{

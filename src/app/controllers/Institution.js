@@ -131,7 +131,7 @@ module.exports = {
 
     async foto(req, res){
 
-        /*const { source } = req.body
+        const { source } = req.body
 
         let data = source.split('base64,');
         let base64 = data[1];
@@ -140,7 +140,6 @@ module.exports = {
         const saveImage = (base64, mimeType, fileName, path) => {
             try {
                 let nomeArquivo = `${path}${fileName}`
-                console.log(`${nomeArquivo}.${mimeType}`)
         
                 fs.writeFileSync(`${nomeArquivo}.${mimeType}`, base64, 'base64');
         
@@ -150,7 +149,7 @@ module.exports = {
             }
         }
 
-        saveImage(base64, mimeType, req.tokenData['_id'], './src/imagens/');*/
+        saveImage(base64, mimeType, req.tokenData['_id'], './src/imagens/');
         
     },
 
@@ -165,7 +164,6 @@ module.exports = {
             )
             .catch(
                 (error) => {
-                    console.log(error); //Exepection error....
                 }
             )
     },
@@ -173,17 +171,18 @@ module.exports = {
     
     async filtro(req, res){
         var tipo = req.params.tipo
-
+        
         var obj = {}
         obj[`${tipo}`] = req.tokenData[`${tipo}`]
-        
-        console.log(obj)
+
+        obj['Active'] = true
+
         Institution.find(obj)
         .then((e) => {
             return res.send(e)
         })
         .catch((err) => {
-
+            return res.status(500).send(err)
         })
     },
 

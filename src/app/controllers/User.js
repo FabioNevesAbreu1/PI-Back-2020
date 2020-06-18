@@ -65,18 +65,20 @@ module.exports = {
     async FindInstitution(req, res, next){
         var  { Option } = req.body
         const { Neighborhood, City } = req.tokenData
+        
 
         //return res.send(JSON.stringify(req.tokenData))
         var UserFilter = ( Option == 'City' ? City : Neighborhood )
 
         if( Option == 'City' ){
-            Institution.find({  'City' : UserFilter, Active: 'true' })
+            Institution.find({  'City' : UserFilter, 'Active': true })
             .then(institution => {
                 return res.send(institution)
             })
         }else{
-            Institution.find({  'Neighborhood' : UserFilter, Active: 'true' })
+            Institution.find({  'Neighborhood' : UserFilter, 'Active': true })
             .then(institution => {
+                console.log(institution)
                 return res.send(institution)
             })
         }
